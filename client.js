@@ -20,6 +20,10 @@ $(document).ready(function(){
       '</tr>'
     );
 
+    //add monthly salary expenses to the DOM
+    var newEmployeeMonthlyExpenses = annualSalary/12;
+    var previousMonthly = $('#monthlyExpenses').text(); // goes to DOM, not the HTML to grab the updated number
+    var totalMonthlyExpenses = parseFloat(previousMonthlyExpenses) + newEmployeeMonthlyExpenses;
+    $('#monthlyExpenses').text(totalMonthlyExpenses); //replaces the text of the span with the id monthlyExpenses on the DOM
   });
-
 });

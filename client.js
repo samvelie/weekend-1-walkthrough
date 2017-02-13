@@ -26,11 +26,13 @@ $(document).ready(function(){
     var previousMonthlyExpenses = $('#monthlyExpenses').text(); // goes to DOM, not the HTML to grab the updated number
     var totalMonthlyExpenses = parseFloat(previousMonthlyExpenses) + newEmployeeMonthlyExpenses;
     $('#monthlyExpenses').text(totalMonthlyExpenses); //replaces the text of the span with the id monthlyExpenses on the DOM
+
+    //clear out input boxes
+    $('.employeeFormInput').val('');
   });
 
+  // listens for click on table on deleteEmployeeButton
   $('#employeeTableBody').on('click', '.deleteEmployeeButton', function(){
-      console.log('Delete button clicked');
-      console.log($(this));
-      $(this).parent().parent().remove()
+      $(this).parent().parent().remove(); //selecting the row of the clicked delete button
   });
 });

@@ -17,13 +17,20 @@ $(document).ready(function(){
       '<td>' + idNumber + '</td>' +
       '<td>' + jobTitle + '</td>' +
       '<td>' + annualSalary + '</td>' +
+      '<td><button class="deleteEmployeeButton">Delete '+ firstName + '</button></td>' +
       '</tr>'
     );
 
     //add monthly salary expenses to the DOM
     var newEmployeeMonthlyExpenses = annualSalary/12;
-    var previousMonthly = $('#monthlyExpenses').text(); // goes to DOM, not the HTML to grab the updated number
+    var previousMonthlyExpenses = $('#monthlyExpenses').text(); // goes to DOM, not the HTML to grab the updated number
     var totalMonthlyExpenses = parseFloat(previousMonthlyExpenses) + newEmployeeMonthlyExpenses;
     $('#monthlyExpenses').text(totalMonthlyExpenses); //replaces the text of the span with the id monthlyExpenses on the DOM
+  });
+
+  $('#employeeTableBody').on('click', '.deleteEmployeeButton', function(){
+      console.log('Delete button clicked');
+      console.log($(this));
+      $(this).parent().parent().remove()
   });
 });

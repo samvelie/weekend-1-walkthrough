@@ -1,23 +1,42 @@
 //waits for DOM to completely load
 $(document).ready(function(){
+
   //event listener for click on submitNewEmployee button
-  $('#submitNewEmployee').on('click', function(){
-    // declares variables and retrieving values from input boxes
-    var firstName = $('#firstName').val();
-    var lastName = $('#lastName').val();
-    var idNumber = $('#idNumber').val();
-    var jobTitle = $('#jobTitle').val();
-    var annualSalary = $('#annualSalary').val();
+  $('form').on('submit', function(event){
+    //stops us from going to a new page
+    event.preventDefault();
+    //logging the created array of inputs. the inputs are converted to objects by this serializeArray method, with two key-value pairs each, coming from the name of the input and the user-submitted value, e.g. {name: 'jobTitle', value: 'Instructor'}
+    console.log('form values: ', $(this).serializeArray());
+
+    var submissionArray = $(this).serializeArray(); // [{},{},...]
+    var newEmployeeObject = {}; //wanting {firstName: 'Luke', lastName: 'Schlangen', ...}
+
+    /*explanation of below forEach operation:
+    newEmployeeObject starts at {}
+    on first time through, this is the same as assigning newEmployeeObject.firstName = 'Luke'
+    1st time through newEmployeeObject is {firstName: 'Luke'}
+    2nd time through newEmployeeObject is {firstName: 'Luke', lastName} */
+    submissionArray.forEach(function(inputField){
+      newEmployeeObject[inputField.name] = inputField.value;
+    })
+
+    // example of working for loop version of above
+    // for (var i = 0; i < submissionArray.length; i++) {
+    //   newEmployeeObject[submissionArray[i].name] = submissionArray[i].value;
+    // }
+
+    console.log(newEmployeeObject);
+
 
     //adds new employee row to the DOM
     $('#employeeTableBody').append(
       '<tr>' +
-      '<td>' + firstName + '</td>' +
-      '<td>' + lastName + '</td>' +
-      '<td>' + idNumber + '</td>' +
-      '<td>' + jobTitle + '</td>' +
-      '<td>' + annualSalary + '</td>' +
-      '<td><button class="deleteEmployeeButton" data-salary="' + annualSalary + '">Delete '+ firstName + '</button></td>' +
+      '<td>' + newEmployeeObject.firstName + '</td>' +
+      '<td>' + newEmployeeObject.lastName + '</td>' +
+      '<td>' + newEmployeeObject.idNumber + '</td>' +
+      '<td>' + newEmployeeObject.jobTitle + '</td>' +
+      '<td>' + newEmployeeObject.annualSalary + '</td>' +
+      '<td><button class="deleteEmployeeButton" data-salary="' + newEmployeeObject.annualSalary + '">Delete '+ newEmployeeObject.firstName + '</button></td>' +
       '</tr>'
     );
 
